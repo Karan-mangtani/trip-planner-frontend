@@ -33,7 +33,7 @@ export class TaskCardComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: any) {
     this.users = extractProp(changes, 'users.currentValue', []);
-    this.pictureUrl = extractProp(this.users.find(user => user.id == this.item.assigned_to), 'picture', '')
+    this.pictureUrl = extractProp(this.users.find(user => user.id == this.item.assigned_to), 'picture', '');
   }
 
   deleteTask(id: string) {

@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 
@@ -20,12 +20,12 @@ export class TasksService {
   constructor(private http: HttpClient) { }
 
   getTasks() {
-    let url = this.getTaskUrl;
+    const url = this.getTaskUrl;
     return this.http.get(url);
   }
 
   getUsers() {
-    let url = this.getUsersUrl;
+    const url = this.getUsersUrl;
     return this.http.get(url);
   }
 

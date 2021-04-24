@@ -7,4 +7,3 @@ export class Task {
     due_date!: string;
     created_on!: string;
   }
-  

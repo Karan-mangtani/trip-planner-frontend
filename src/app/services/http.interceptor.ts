@@ -8,7 +8,7 @@ import {
     HttpErrorResponse
 } from '@angular/common/http';
 
-import { Observable, throwError } from "rxjs";
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { TasksService } from './tasks.service';
 @Injectable()
@@ -19,19 +19,19 @@ export class CustomInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         request = request.clone({
             setHeaders: {
-                "AuthToken": "Lnr0kGA5lj1eKUQmcTSjLX9NGtREX7Qs"
+                AuthToken: 'Lnr0kGA5lj1eKUQmcTSjLX9NGtREX7Qs'
             }
         });
 
-        if (request.method === "GET") {
+        if (request.method === 'GET') {
             this.taskService.setLoading(true);
         }
-        
+
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     this.taskService.setLoading(false);
-                    if(event.body.status === "error") {
+                    if (event.body.status === 'error') {
                         window.alert(event.body.error);
                     }
                 }

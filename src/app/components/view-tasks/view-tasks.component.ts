@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { TasksService } from '../../services/tasks.service';
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup } from '@angular/forms';
 import { DragDropComponent } from '../drag-drop/drag-drop.component';
 import { AddUpdateDialogComponent } from '../add-update-dialog/add-update-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user.model';
 import { extractProp, formatDate } from 'src/app/utlities';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-tasks',
@@ -15,11 +16,13 @@ import { extractProp, formatDate } from 'src/app/utlities';
 })
 export class ViewTasksComponent implements OnInit {
   @ViewChild(DragDropComponent) child!: DragDropComponent;
-  
+
   users: User[] = [];
   tasks: Task[];
   filteredTasks: Task[];
   search = new FormControl('');
+
+  subscription: Subscription = new Subscription;
 
   constructor(
     private taskService: TasksService,
@@ -32,7 +35,8 @@ export class ViewTasksComponent implements OnInit {
   ngOnInit(): void {
     this.getTasks();
     this.getUsers();
-    this.search.valueChanges.subscribe((value => this.performSearch(value)))
+    var subscription1 = this.search.valueChanges.subscribe((value => this.performSearch(value)));
+    this.subscription.add(subscription1);
   }
 
 
@@ -44,16 +48,18 @@ export class ViewTasksComponent implements OnInit {
   }
 
   getTasks() {
-    this.taskService.getTasks().subscribe((data: any) => {
+    var subscription4 = this.taskService.getTasks().subscribe((data: any) => {
       this.tasks = data.tasks;
       this.filteredTasks = data.tasks;
     });
+    this.subscription.add(subscription4);
   }
 
   getUsers() {
-    this.taskService.getUsers().subscribe((data: any) => {
+    var subscription5 = this.taskService.getUsers().subscribe((data: any) => {
       this.users = data.users;
-    })
+    });
+    this.subscription.add(subscription5);
   }
 
   updatetaskData(tasks: Task[]) {
@@ -62,54 +68,57 @@ export class ViewTasksComponent implements OnInit {
   }
 
   onClickAdd() {
-    this.openDialog(new Task())
+    this.openDialog(new Task());
   }
 
   addTask(task: any) {
-    var formData: any = new FormData();
-    formData.append("message", task.message);
-    formData.append("due_date", formatDate(task.due_date));
-    formData.append("priority", task.priority);
-    formData.append("assigned_to", task.assigned_to);
-    this.taskService.createtask(formData).subscribe((data) => {
-      if (data.status == "success") {
-        let newTask: Task = {
+    const formData: any = new FormData();
+    formData.append('message', task.message);
+    formData.append('due_date', formatDate(task.due_date));
+    formData.append('priority', task.priority);
+    formData.append('assigned_to', task.assigned_to);
+    var subscription2 = this.taskService.createtask(formData).subscribe((data) => {
+      if (data.status == 'success') {
+        const newTask: Task = {
           ...task,
-          id: data.taskid, 
+          id: data.taskid,
           assigned_name: extractProp(this.users.find(user => user.id == task.assigned_to), 'name', '')
-        }
-        this.updatetaskData([...this.tasks, newTask])
+        };
+        this.updatetaskData([...this.tasks, newTask]);
       }
-    })
+    });
+    this.subscription.add(subscription2);
   }
 
   updateTask(task: any) {
-    var formData: any = new FormData();
-    formData.append("message", task.message);
-    formData.append("due_date", formatDate(task.due_date));
-    formData.append("priority", task.priority);
-    formData.append("assigned_to", task.assigned_to);
-    formData.append("taskid", task.id)
-    this.taskService.updateTask(formData).subscribe((data) => {
-      if (data.status == "success") {
-        this.tasks = this.tasks.filter(t  => t.id != task.id);
-        let newTask: Task = {
+    const formData: any = new FormData();
+    formData.append('message', task.message);
+    formData.append('due_date', formatDate(task.due_date));
+    formData.append('priority', task.priority);
+    formData.append('assigned_to', task.assigned_to);
+    formData.append('taskid', task.id);
+    var subscription3 = this.taskService.updateTask(formData).subscribe((data) => {
+      if (data.status == 'success') {
+        this.tasks = this.tasks.filter(t => t.id != task.id);
+        const newTask: Task = {
           ...task,
           assigned_name: extractProp(this.users.find(user => user.id == task.assigned_to), 'name', '')
-        }
-        this.updatetaskData([...this.tasks, newTask])
+        };
+        this.updatetaskData([...this.tasks, newTask]);
       }
-    })
+    });
+    this.subscription.add(subscription3);
   }
 
   deleteTask(id: string) {
-    var formData: any = new FormData();
-    formData.append("taskid", id)
-    this.taskService.deleteTask(formData).subscribe((data) => {
-      if (data.status == "success") {
-        this.updatetaskData(this.tasks.filter(task  => task.id != id))
+    const formData: any = new FormData();
+    formData.append('taskid', id);
+    var subscription6 = this.taskService.deleteTask(formData).subscribe((data) => {
+      if (data.status == 'success') {
+        this.updatetaskData(this.tasks.filter(task => task.id != id));
       }
-    })
+    });
+    this.subscription.add(subscription6);
   }
 
   openDialog(task: Task) {
@@ -118,9 +127,10 @@ export class ViewTasksComponent implements OnInit {
       data: { users: this.users, task }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    var subscription7 = dialogRef.afterClosed().subscribe(result => {
       this.addUpdateTask(result);
     });
+    this.subscription.add(subscription7);
   }
 
   addUpdateTask(task: any) {
@@ -131,4 +141,7 @@ export class ViewTasksComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 }

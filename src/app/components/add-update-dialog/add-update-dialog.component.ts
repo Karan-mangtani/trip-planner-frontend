@@ -2,11 +2,11 @@ import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, } from '@angular/material/dialog';
 import { Task } from 'src/app/models/task.model';
 import { User } from 'src/app/models/user.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export interface DialogData {
-  task: Task,
-  users: User[]
+  task: Task;
+  users: User[];
 }
 
 @Component({

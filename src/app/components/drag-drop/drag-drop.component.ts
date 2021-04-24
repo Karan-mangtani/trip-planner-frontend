@@ -37,15 +37,15 @@ export class DragDropComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: any) {
-    if(changes.tasks) {
+    if (changes.tasks) {
       this.filterTask( changes.tasks.currentValue);
     }
   }
 
   filterTask(tasks: Task[]) {
-    this.low = <Task[]>sortList(tasks.filter(task => task.priority == "1"), 'due_date');
-    this.medium = <Task[]>sortList(tasks.filter(task => task.priority == "2"), 'due_date');
-    this.high = <Task[]>sortList(tasks.filter(task => task.priority == "3"), 'due_date');
+    this.low = (sortList(tasks.filter(task => task.priority == '1'), 'due_date') as Task[]);
+    this.medium = (sortList(tasks.filter(task => task.priority == '2'), 'due_date') as Task[]);
+    this.high = (sortList(tasks.filter(task => task.priority == '3'), 'due_date') as Task[]);
   }
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -56,18 +56,18 @@ export class DragDropComponent implements OnInit, OnChanges {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-        let updatedTask: Task = event.container.data[event.currentIndex];
-        switch(event.container.id) {
-          case "cdk-drop-list-0": {
-            this.updateTask.emit({...updatedTask, priority : "3"});
+      const updatedTask: Task = event.container.data[event.currentIndex];
+      switch (event.container.id) {
+          case 'cdk-drop-list-0': {
+            this.updateTask.emit({...updatedTask, priority : '3'});
             break;
           }
-          case "cdk-drop-list-1": {
-            this.updateTask.emit({...updatedTask, priority : "2"});
+          case 'cdk-drop-list-1': {
+            this.updateTask.emit({...updatedTask, priority : '2'});
             break;
           }
-          case "cdk-drop-list-2": {
-            this.updateTask.emit({...updatedTask, priority : "1"});
+          case 'cdk-drop-list-2': {
+            this.updateTask.emit({...updatedTask, priority : '1'});
             break;
           }
           default:
