@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: '/tasks/'
+  api: 'https://devza.com/tests/tasks/'
 };
