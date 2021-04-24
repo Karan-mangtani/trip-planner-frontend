@@ -1,0 +1,16 @@
+<div class="view-header">
+    <div class="float-left">
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Search</mat-label>
+                <input matInput placeholder="Task" [formControl]="search">
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="float-right">
+        <button mat-raised-button color="primary" (click)="onClickAdd()">Add Task</button>
+    </div>
+</div>
+<div  class="view-content">
+    <app-drag-drop [tasks]="filteredTasks" [users]="users" (delete)="deleteTask($event)" (openDialog)="openDialog($event)" (updateTask) = "updateTask($event)" ></app-drag-drop>
+</div>

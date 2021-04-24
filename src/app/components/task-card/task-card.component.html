@@ -1,0 +1,20 @@
+<div class="card-row">
+    <div class="float-left heading-text">
+        {{item.message}}
+    </div>
+    <button mat-mini color="primary" aria-label="" (click)="deleteTask(item.id)" class="action-btn">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-mini color="primary" aria-label="" (click)="onEditClick(item)" class="action-btn">
+        <mat-icon>edit</mat-icon>
+    </button>
+</div>
+
+<div class="card-row mt-20">
+    <div class="float-left mt-auto" *ngIf="pictureUrl" title='{{item.assigned_name }}'>
+        <img [src]='pictureUrl' width="40" height="40" class="rounded-img"/>
+    </div>
+    <div class="float-right mt-auto">
+        {{item.due_date | date}}
+    </div>
+</div>
