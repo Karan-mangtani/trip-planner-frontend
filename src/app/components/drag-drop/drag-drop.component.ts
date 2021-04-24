@@ -4,6 +4,7 @@ import { Task } from 'src/app/models/task.model';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { User } from 'src/app/models/user.model';
 import { TasksService } from 'src/app/services/tasks.service';
+import { sortList } from 'src/app/utlities';
 
 @Component({
   selector: 'app-drag-drop',
@@ -42,9 +43,9 @@ export class DragDropComponent implements OnInit, OnChanges {
   }
 
   filterTask(tasks: Task[]) {
-    this.low = tasks.filter(task => task.priority == "1");
-    this.medium = tasks.filter(task => task.priority == "2");
-    this.high = tasks.filter(task => task.priority == "3");
+    this.low = <Task[]>sortList(tasks.filter(task => task.priority == "1"), 'due_date');
+    this.medium = <Task[]>sortList(tasks.filter(task => task.priority == "2"), 'due_date');
+    this.high = <Task[]>sortList(tasks.filter(task => task.priority == "3"), 'due_date');
   }
 
   drop(event: CdkDragDrop<Task[]>) {

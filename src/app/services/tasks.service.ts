@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError, retry } from "rxjs/operators";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -9,12 +9,11 @@ import { catchError, retry } from "rxjs/operators";
 })
 export class TasksService {
 
-  commonUrl = "https://devza.com/tests/tasks/";
-  getTaskUrl = `${this.commonUrl}list`;
-  getUsersUrl = `${this.commonUrl}listusers`;
-  createTaskUrl = `${this.commonUrl}create`;
-  deleteTaskUrl = `${this.commonUrl}delete`;
-  updateTaskUrl = `${this.commonUrl}update`;
+  getTaskUrl = `${environment.api}list`;
+  getUsersUrl = `${environment.api}listusers`;
+  createTaskUrl = `${environment.api}create`;
+  deleteTaskUrl = `${environment.api}delete`;
+  updateTaskUrl = `${environment.api}update`;
 
   loading = false;
 

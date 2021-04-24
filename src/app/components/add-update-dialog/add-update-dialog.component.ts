@@ -26,6 +26,8 @@ export class AddUpdateDialogComponent implements OnInit, OnChanges {
     due_date: new FormControl('', Validators.required)
   });
 
+  minDate = new Date();
+
   constructor(
     public dialogRef: MatDialogRef<AddUpdateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData

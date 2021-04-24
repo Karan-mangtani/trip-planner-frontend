@@ -23,6 +23,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash"
+            ],
             "outputPath": "dist/devza-task-manager",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -72,7 +75,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "devza-task-manager:build"
+            "browserTarget": "devza-task-manager:build",
+            "proxyConfig": "src/proxy.conf.json",
           },
           "configurations": {
             "production": {

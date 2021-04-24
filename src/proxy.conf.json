@@ -1,0 +1,7 @@
+{
+    "/tasks": {
+      "target": "https://devza.com/tests",
+      "secure": true,
+      "changeOrigin": true
+    }
+  }
