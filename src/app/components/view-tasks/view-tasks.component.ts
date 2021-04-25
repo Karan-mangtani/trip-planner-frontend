@@ -39,7 +39,7 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription1);
   }
 
-
+  // Search on task message
   performSearch(filterBy: string) {
     filterBy = filterBy.toLocaleLowerCase();
     this.filteredTasks = this.tasks.filter((singletask: Task) => {
@@ -47,6 +47,7 @@ export class ViewTasksComponent implements OnInit {
     });
   }
 
+  // get Task data from api
   getTasks() {
     var subscription4 = this.taskService.getTasks().subscribe((data: any) => {
       this.tasks = data.tasks;
@@ -55,6 +56,7 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription4);
   }
 
+  // Get user data from api
   getUsers() {
     var subscription5 = this.taskService.getUsers().subscribe((data: any) => {
       this.users = data.users;
@@ -62,15 +64,18 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription5);
   }
 
+  // Update tasks data on component
   updatetaskData(tasks: Task[]) {
     this.tasks = tasks;
     this.filteredTasks = this.tasks;
   }
 
+  // On click of add button
   onClickAdd() {
     this.openDialog(new Task());
   }
 
+  // Call add task api and push task in component data
   addTask(task: any) {
     const formData: any = new FormData();
     formData.append('message', task.message);
@@ -90,6 +95,7 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription2);
   }
 
+  // call update task api and update in component data
   updateTask(task: any) {
     const formData: any = new FormData();
     formData.append('message', task.message);
@@ -110,6 +116,7 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription3);
   }
 
+  // call delete task api and delete from the component data
   deleteTask(id: string) {
     const formData: any = new FormData();
     formData.append('taskid', id);
@@ -121,6 +128,7 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription6);
   }
 
+  // OPen dialog box to add and update task
   openDialog(task: Task) {
     const dialogRef = this.dialog.open(AddUpdateDialogComponent, {
       width: '600px',
@@ -133,6 +141,7 @@ export class ViewTasksComponent implements OnInit {
     this.subscription.add(subscription7);
   }
 
+  // If task has id call update api else add api
   addUpdateTask(task: any) {
     if (task.id) {
       this.updateTask(task);
@@ -141,6 +150,7 @@ export class ViewTasksComponent implements OnInit {
     }
   }
 
+  // Unsubscribe the subscription in the component
   ngOnDestroy() {
     this.subscription.unsubscribe()
   }

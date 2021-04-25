@@ -10,14 +10,14 @@ import { extractProp } from '../../utlities/index';
   styleUrls: ['./task-card.component.scss']
 })
 export class TaskCardComponent implements OnInit, OnChanges {
-  @Input() item: Task;
-  @Input() users: User[];
+  @Input() item: Task; // Each task item received from DragDropComponent
+  @Input() users: User[];// User data received from DragDropComponent
 
   @Output()
-  delete = new EventEmitter<string>();
+  delete = new EventEmitter<string>(); // call delete api from current to DragDropComponent
 
   @Output()
-  update = new EventEmitter<Task>();
+  update = new EventEmitter<Task>();// call update api from current to DragDropComponent
 
   pictureUrl = '';
 
@@ -31,15 +31,18 @@ export class TaskCardComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
+  // Detect changes incoming from parent component and update profile picture
   ngOnChanges(changes: any) {
     this.users = extractProp(changes, 'users.currentValue', []);
     this.pictureUrl = extractProp(this.users.find(user => user.id == this.item.assigned_to), 'picture', '');
   }
 
-  deleteTask(id: string) {
+  // Call delete function in parent component
+  onClickDelete(id: string) {
     this.delete.emit(id);
   }
 
+  // Call update function in parent component
   onEditClick(task: Task) {
     this.update.emit(task);
   }

@@ -49,10 +49,12 @@ export class AddUpdateDialogComponent implements OnInit, OnChanges {
   ngOnChanges(changes: any) {
   }
 
+  // On click of cancel button
   closeDialog(): void {
     this.dialogRef.close();
   }
 
+  // On click of submit button
   submitForm() {
     this.dialogRef.close(this.taskForm.value);
   }

@@ -5,7 +5,7 @@
         <div cdkDropList [cdkDropListData]="high" class="example-list" (cdkDropListDropped)="drop($event)">
             <mat-spinner *ngIf="this.taskService.loading"></mat-spinner>
             <div class="example-box" *ngFor="let item of high" cdkDrag>
-                <app-task-card class="w-100" [item]="item" [users]="users" (delete)="deleteTask($event)"
+                <app-task-card class="w-100" [item]="item" [users]="users" (delete)="onClickDelete($event)"
                     (update)="onEditClick($event)"></app-task-card>
             </div>
             <div *ngIf="!this.taskService.loading && high.length ==00" >
@@ -22,7 +22,7 @@
         <div cdkDropList [cdkDropListData]="medium" class="example-list" (cdkDropListDropped)="drop($event)">
             <mat-spinner *ngIf="this.taskService.loading"></mat-spinner>
             <div class="example-box" *ngFor="let item of medium" cdkDrag>
-                <app-task-card class="w-100" [item]="item" [users]="users" (delete)="deleteTask($event)"
+                <app-task-card class="w-100" [item]="item" [users]="users" (delete)="onClickDelete($event)"
                     (update)="onEditClick($event)"></app-task-card>
             </div>
             <div *ngIf="!this.taskService.loading && medium.length ==00" >
@@ -39,7 +39,7 @@
         <div cdkDropList [cdkDropListData]="low" class="example-list" (cdkDropListDropped)="drop($event)">
             <mat-spinner *ngIf="this.taskService.loading"></mat-spinner>
             <div class="example-box" *ngFor="let item of low" cdkDrag>
-                <app-task-card class="w-100" [item]="item" [users]="users" (delete)="deleteTask($event)"
+                <app-task-card class="w-100" [item]="item" [users]="users" (delete)="onClickDelete($event)"
                     (update)="onEditClick($event)"></app-task-card>
             </div>
             <div *ngIf="!this.taskService.loading && low.length ==00" >
