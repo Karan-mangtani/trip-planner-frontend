@@ -1,6 +1,6 @@
 {
-    "/tasks": {
-      "target": "https://devza.com/tests",
+    "/api": {
+      "target": "https://trip-planner-karan.herokuapp.com/",
       "secure": true,
       "changeOrigin": true
     }

@@ -1,5 +1,5 @@
 {
-  "name": "devza-task-manager",
+  "name": "trip-planner",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

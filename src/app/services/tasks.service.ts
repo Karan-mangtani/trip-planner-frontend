@@ -9,36 +9,21 @@ import { environment } from '../../environments/environment';
 })
 export class TasksService {
 
-  getTaskUrl = `${environment.api}list`;
-  getUsersUrl = `${environment.api}listusers`;
-  createTaskUrl = `${environment.api}create`;
-  deleteTaskUrl = `${environment.api}delete`;
-  updateTaskUrl = `${environment.api}update`;
+  cityNamesApi = `/api/get-city-names`;
+  tripInfoApi = `/api/get-trip`;
 
   loading = false;
 
   constructor(private http: HttpClient) { }
 
-  getTasks() {
-    const url = this.getTaskUrl;
+  getCities() {
+    const url = this.cityNamesApi;
     return this.http.get(url);
   }
 
-  getUsers() {
-    const url = this.getUsersUrl;
+  getTrip(cityCode: string) {
+    const url = `${this.tripInfoApi}/${cityCode}`;
     return this.http.get(url);
-  }
-
-  createtask(task: any): Observable<any> {
-    return this.http.post<any>(this.createTaskUrl, task);
-  }
-
-  deleteTask(task: any): Observable<any> {
-    return this.http.post<any>(this.deleteTaskUrl, task);
-  }
-
-  updateTask(task: any): Observable<any> {
-    return this.http.post<any>(this.updateTaskUrl, task);
   }
 
   setLoading(loading: boolean) {

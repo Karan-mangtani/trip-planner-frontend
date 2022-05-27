@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TasksService } from './services/tasks.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'devza-task-manager';
+  title = 'Trip Planner';
 }

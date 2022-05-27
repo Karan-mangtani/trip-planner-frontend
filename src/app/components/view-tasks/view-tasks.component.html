@@ -1,16 +1,88 @@
 <div class="view-header">
     <div class="float-left">
         <form class="example-form">
-            <mat-form-field class="example-full-width">
-                <mat-label>Search</mat-label>
-                <input matInput placeholder="Task" [formControl]="search">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>City</mat-label>
+                <input type="text" placeholder="Pick one" aria-label="text" matInput [formControl]="search"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                    (optionSelected)='optionSelected($event.option.value)'>
+                    <mat-option *ngFor="let option of filteredOptions  | async" [value]="option">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
         </form>
     </div>
-    <div class="float-right">
-        <button mat-raised-button color="primary" (click)="onClickAdd()">Add Task</button>
+    <div *ngIf="tripCities.length>0" class="float-right">
+        <h3>{{totalDistance}} KM's</h3>
     </div>
 </div>
-<div  class="view-content">
-    <app-drag-drop [tasks]="filteredTasks" [users]="users" (delete)="deleteTask($event)" (openDialog)="openDialog($event)" (updateTask) = "updateTask($event)" ></app-drag-drop>
+<div class="view-content">
+    <mat-spinner *ngIf="this.taskService.loading"></mat-spinner>
+
+    <div *ngIf="tripCities.length>0" class="row">
+        <div class="column">
+            <div class="card">
+                <img width="20" height="20" alt="Angular Logo" src="/assets/start.png" />
+                <h3>{{tripCities[0].name}}</h3>
+                <p>{{tripCities[0].countryName}}({{tripCities[0].contId}})</p>
+                <p><img width="20" height="20" alt="Angular Logo" src="/assets/plane.png" /> {{tripCities[0].airports}}
+                </p>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img width="20" height="20" alt="Angular Logo" src="/assets/source.png" />
+                <h3>{{tripCities[1].name}}</h3>
+                <p>{{tripCities[1].countryName}}({{tripCities[1].contId}})</p>
+                <p><img width="20" height="20" alt="Angular Logo" src="/assets/plane.png" /> {{tripCities[1].airports}}
+                </p>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img width="20" height="20" alt="Angular Logo" src="/assets/source.png" />
+                <h3>{{tripCities[2].name}}</h3>
+                <p>{{tripCities[2].countryName}}({{tripCities[2].contId}})</p>
+                <p><img width="20" height="20" alt="Angular Logo" src="/assets/plane.png" /> {{tripCities[2].airports}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="tripCities.length>0" class="row">
+        <div class="column">
+            <div class="card">
+                <img width="20" height="20" alt="Angular Logo" src="/assets/source.png" />
+                <h3>{{tripCities[3].name}}</h3>
+                <p>{{tripCities[3].countryName}}({{tripCities[3].contId}})</p>
+                <p><img width="20" height="20" alt="Angular Logo" src="/assets/plane.png" /> {{tripCities[3].airports}}
+                </p>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img width="20" height="20" alt="Angular Logo" src="/assets/source.png" />
+                <h3>{{tripCities[4].name}}</h3>
+                <p>{{tripCities[4].countryName}}({{tripCities[4].contId}})</p>
+                <p><img width="20" height="20" alt="Angular Logo" src="/assets/plane.png" /> {{tripCities[4].airports}}
+                </p>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img width="20" height="20" alt="Angular Logo" src="/assets/source.png" />
+                <h3>{{tripCities[5].name}}</h3>
+                <p>{{tripCities[5].countryName}}({{tripCities[5].contId}})</p>
+                <p><img width="20" height="20" alt="Angular Logo" src="/assets/plane.png" /> {{tripCities[5].airports}}
+                </p>
+            </div>
+        </div>
+
+    </div>
 </div>

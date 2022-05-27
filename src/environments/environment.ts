@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  api: '/tasks/'
-
+  mapbox: {
+    accessToken: 'pk.eyJ1Ijoia2FyYW1hbmd0YW5pNSIsImEiOiJjbDNuN3p4Z3EwYndrM2NwYnFzb2h2b3J6In0.V5eesb2g858SmZn9AO2Mhw'
+  }
 };
 
 /*
