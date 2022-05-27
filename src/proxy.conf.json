@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://trip-planner-karan.herokuapp.com/",
+      "target": "https://trip-planner-karan.herokuapp.com",
       "secure": false,
       "changeOrigin": true
     }
